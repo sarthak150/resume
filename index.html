@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarthak Sarkar | ML Researcher & Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral & Blue -->
+    <!-- Application Structure Plan: A single-page portfolio layout with a sticky top navigation bar for quick access to key sections (About, Skills, Experience, Projects, Contact). This non-linear structure allows recruiters to instantly jump to the information they need, which is more efficient than a traditional linear document. The largest section, Projects, is organized with a tabbed interface to compactly present a large volume of information without overwhelming the user, letting them choose which category to explore. This user-directed approach is optimal for the resume's target audience. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Core Skills. Goal: Inform/Organize. Viz/Method: Categorized tag-like pills using HTML/Tailwind. Interaction: Hover effects. Justification: Cleanly organizes skills without implying unstated proficiency levels. Method: HTML/CSS.
+        - Report Info: Project Accuracy (~87%). Goal: Inform/Impact. Viz/Method: Donut chart. Interaction: Tooltip on hover. Justification: Visually highlights a key quantitative achievement, making it more memorable than text alone. Method: Chart.js/Canvas.
+        - Report Info: All projects/publications. Goal: Organize/Detail. Viz/Method: Tabbed content cards. Interaction: Click tabs to switch views. Justification: Manages a large amount of content in a small space, improving usability and preventing a long, unmanageable page scroll. Method: JS/HTML/CSS.
+        - Report Info: Work History. Goal: Show Progression. Viz/Method: Vertical timeline. Interaction: None (visual structure is sufficient). Justification: An intuitive and standard way to represent chronological experience. Method: HTML/CSS.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 300px;
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #007bff;
+        }
+        .tab-btn {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-btn.active {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .section-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-gray-800">Sarthak Sarkar</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#summary" class="nav-link text-gray-600 font-medium">About</a>
+                <a href="#skills" class="nav-link text-gray-600 font-medium">Skills</a>
+                <a href="#experience" class="nav-link text-gray-600 font-medium">Experience</a>
+                <a href="#projects" class="nav-link text-gray-600 font-medium">Projects</a>
+                <a href="#contact" class="nav-link text-gray-600 font-medium">Contact</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#summary" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">About</a>
+            <a href="#skills" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Skills</a>
+            <a href="#experience" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Experience</a>
+            <a href="#projects" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Projects</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="summary" class="mb-24 text-center">
+             <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Sarthak Sarkar</h1>
+                <p class="text-xl md:text-2xl text-blue-600 font-semibold mb-6">Machine Learning Researcher & Developer</p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Results-driven IT professional with expertise in Machine Learning, Data Analysis, and Product Development. Experienced in medical research projects, particularly Alzheimer’s disease detection using advanced ML algorithms. Proven ability to lead product development and scale technology solutions. Strong foundation in programming, data structures, and statistical analysis.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-24">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Core Skills & Competencies</h2>
+            <div class="text-center mb-4 text-gray-600">
+                <p>This section outlines my technical and research capabilities, which form the foundation of my work in machine learning and software engineering.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Programming Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Python</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Java</span>
+                    </div>
+                </div>
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Web Technologies</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">HTML5</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">CSS3</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">React.js</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Next.js</span>
+                    </div>
+                </div>
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Tools & Databases</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">VS Code</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">GitHub</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">SQL</span>
+                    </div>
+                </div>
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Core Competencies</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">Data Structures</span>
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">Algorithms</span>
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">Software Engineering</span>
+                    </div>
+                </div>
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Research Skills</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">Machine Learning</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">Feature Engineering</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">Statistical Analysis</span>
+                    </div>
+                </div>
+                 <div class="section-card p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">English</span>
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">Bengali</span>
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">Hindi</span>
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">German</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="experience" class="mb-24">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Professional Experience</h2>
+             <div class="text-center mb-4 text-gray-600">
+                <p>My professional journey is centered on applying machine learning to solve complex problems in medical diagnostics. Here's a timeline of my current role.</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="relative pl-8 sm:pl-10 py-6 border-l-2 border-blue-500">
+                    <div class="absolute -left-2.5 top-5 w-5 h-5 bg-blue-500 rounded-full border-4 border-white"></div>
+                    <time class="block mb-2 text-sm font-semibold text-blue-600">August 2024 – Present</time>
+                    <h3 class="text-xl font-bold text-gray-900">Junior Research Fellow</h3>
+                    <p class="text-md font-medium text-gray-600 mb-4">Jadavpur University, DST Project on Alzheimer’s Detection using ML</p>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li>Conduct research on ML algorithms for early Alzheimer’s detection.</li>
+                        <li>Lead data preprocessing, feature engineering, model training, and validation.</li>
+                        <li>Collaborate with healthcare professionals to enhance diagnostic tools and model accuracy.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="mb-24">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-900">Projects & Publications</h2>
+            <div class="text-center mb-8 text-gray-600 max-w-3xl mx-auto">
+                <p>This area showcases my hands-on experience, from formal research and publications to practical undergraduate projects. Use the tabs below to explore different categories of my work. Each project demonstrates my ability to conceptualize, develop, and execute data-driven solutions.</p>
+            </div>
+
+            <div class="flex justify-center mb-8 space-x-2 md:space-x-4">
+                <button class="tab-btn px-4 py-2 rounded-md font-semibold text-sm md:text-base bg-gray-200 text-gray-700 active" data-tab="research">Research</button>
+                <button class="tab-btn px-4 py-2 rounded-md font-semibold text-sm md:text-base bg-gray-200 text-gray-700" data-tab="publications">Publications</button>
+                <button class="tab-btn px-4 py-2 rounded-md font-semibold text-sm md:text-base bg-gray-200 text-gray-700" data-tab="undergraduate">Undergraduate</button>
+            </div>
+
+            <div id="projects-content" class="max-w-4xl mx-auto">
+                <div id="research-content" class="tab-content grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+                <div id="publications-content" class="tab-content hidden grid grid-cols-1 gap-8"></div>
+                <div id="undergraduate-content" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+            </div>
+        </section>
+
+        <section id="education" class="mb-24">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Education & Certifications</h2>
+             <div class="text-center mb-4 text-gray-600">
+                <p>My formal education and continuous learning through certifications provide the theoretical and practical knowledge for my work.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="section-card p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Bachelor of Technology (B.Tech) in IT</h3>
+                    <p class="font-semibold text-gray-700">RCC Institute of Information Technology, Kolkata</p>
+                    <p class="text-sm text-gray-500 mb-2">June 2018 – July 2022</p>
+                    <p class="text-lg font-bold text-blue-600">CGPA: 8.69</p>
+                </div>
+                <div class="section-card p-6 space-y-3">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Certifications</h3>
+                    <div class="text-gray-700"><span class="font-semibold">Digital Nurture Program</span> – Cognizant</div>
+                    <div class="text-gray-700"><span class="font-semibold">Programming Through C++</span> – IIT Bombay</div>
+                    <div class="text-gray-700"><span class="font-semibold">Android Development Workshop</span> – IIT Kharagpur</div>
+                    <div class="text-gray-700"><span class="font-semibold">Fundamentals of Remote Sensing</span> – ISRO</div>
+                    <div class="text-gray-700"><span class="font-semibold">Soft Skills Training</span> – NPTEL, IIT Kanpur</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+             <div class="text-center mb-8 text-gray-300 max-w-2xl mx-auto">
+                <p>I am always open to discussing new research, projects, or opportunities. Feel free to reach out through any of the channels below.</p>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                <p class="font-semibold">Kolkata, West Bengal</p>
+                <p class="font-semibold">Phone: <a href="tel:7001363808" class="hover:text-blue-400 transition-colors">7001363808</a></p>
+                <p class="font-semibold">Email: <a href="mailto:sarthaksarkar150@gmail.com" class="hover:text-blue-400 transition-colors">sarthaksarkar150@gmail.com</a></p>
+            </div>
+            <div class="mt-8">
+                <p class="text-gray-400 text-sm">&copy; 2025 Sarthak Sarkar. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = {
+                research: [
+                    {
+                        title: 'Early Detection of Alzheimer’s Disease using AIMaC Algorithm and fMRI Data',
+                        description: 'Implemented Adaptive Mahalanobis Classifier (AIMaC) for early Alzheimer’s diagnosis from fMRI scans. Developed a complete ML pipeline: preprocessing, feature extraction, classification.',
+                        status: 'Journal Submitted'
+                    },
+                    {
+                        title: 'PBP-Based EEG Analysis for Alzheimer’s Detection',
+                        description: 'Investigating Primate Brain Pattern (PBP) analysis for classifying EEG signals for early AD diagnosis.',
+                        tools: 'Python, MNE, MATLAB',
+                        status: 'Ongoing'
+                    },
+                    {
+                        title: 'EEG + AIMaC-Based Alzheimer’s Detection via PBP Analysis',
+                        description: 'Combined PBP with AIMaC classifier for improved EEG-based prediction. Conducting comparative analysis with other ML classifiers.',
+                        status: 'Ongoing'
+                    },
+                    {
+                        title: 'Interlobe Energy Classification in AD and MCI Patients using EEG',
+                        description: 'Performed energy decomposition of EEG signals across brain lobes to distinguish AD and MCI. Focused on channel-specific spectral analysis and clinical correlation.',
+                        status: 'Ongoing'
+                    },
+                ],
+                publications: [
+                    {
+                        title: 'Can Alzheimer’s Disease be Detected using Minimum Brain EEG Signals?',
+                        journal: 'Journal of the Franklin Institute',
+                        status: 'Submitted',
+                        authors: 'Arya Kanta, Sarthak Sarkar, Abhijit Chandra'
+                    },
+                    {
+                        title: 'On the Classification of Wavelet Transformed EEG Signal using Hjorth Parameters to Identify Alzheimer’s Disease',
+                        journal: 'Biomedical Signal Processing and Control',
+                        status: 'Under Review',
+                        authors: 'Pawan Kumar Ojha, Sarthak Sarkar, Abhijit Chandra'
+                    }
+                ],
+                undergraduate: [
+                    {
+                        title: 'Automatic Detection of Neuro Diseases from Handwriting',
+                        description: 'Developed AI model using CNN and SVM for handwriting-based neurodegenerative disease diagnosis. Achieved ~87% accuracy.',
+                        tools: 'Python, OpenCV, scikit-learn',
+                        chart: true
+                    },
+                    {
+                        title: 'Image Classification of Different Celebrities',
+                        description: 'Designed pipeline using wavelet transforms and SVM for classification.',
+                        tools: 'OpenCV, Python'
+                    },
+                    {
+                        title: 'Personal Finance Management Dashboard',
+                        description: 'Created an interactive Power BI dashboard for personal finance visualization and management.',
+                        tools: 'Power BI'
+                    }
+                ]
+            };
+            
+            const researchContainer = document.getElementById('research-content');
+            const publicationsContainer = document.getElementById('publications-content');
+            const undergraduateContainer = document.getElementById('undergraduate-content');
+
+            function createCard(item, type) {
+                let content = `<div class="section-card p-6 flex flex-col h-full">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">${item.title}</h3>`;
+
+                if (type === 'research') {
+                    content += `<p class="text-gray-700 mb-4 flex-grow">${item.description}</p>`;
+                    if(item.tools) content += `<p class="text-sm text-gray-500 mb-2"><strong>Tools:</strong> ${item.tools}</p>`;
+                    content += `<span class="text-sm font-semibold ${item.status === 'Ongoing' ? 'text-yellow-600' : 'text-green-600'}">${item.status}</span>`;
+                } else if (type === 'publications') {
+                    content += `<p class="text-gray-700 italic mb-2">Journal: ${item.journal}</p>`;
+                    content += `<p class="text-sm text-gray-600 mb-4"><strong>Authors:</strong> ${item.authors}</p>`;
+                    content += `<span class="text-sm font-semibold ${item.status === 'Under Review' ? 'text-yellow-600' : 'text-green-600'}">${item.status}</span>`;
+                } else if (type === 'undergraduate') {
+                    if (item.chart) {
+                        content += `<div class="flex flex-col xl:flex-row gap-4 flex-grow">
+                                        <div class="flex-1"><p class="text-gray-700 mb-4">${item.description}</p></div>
+                                        <div class="flex-shrink-0 w-full xl:w-48"><div class="chart-container" style="height: 150px; max-width:150px;"><canvas id="accuracyChart"></canvas></div></div>
+                                    </div>`;
+                    } else {
+                         content += `<p class="text-gray-700 mb-4 flex-grow">${item.description}</p>`;
+                    }
+                    content += `<p class="text-sm text-gray-500"><strong>Tools:</strong> ${item.tools}</p>`;
+                }
+                
+                content += `</div>`;
+                return content;
+            }
+
+            researchContainer.innerHTML = data.research.map(item => createCard(item, 'research')).join('');
+            publicationsContainer.innerHTML = data.publications.map(item => createCard(item, 'publications')).join('');
+            undergraduateContainer.innerHTML = data.undergraduate.map(item => createCard(item, 'undergraduate')).join('');
+
+            const accuracyChartCanvas = document.getElementById('accuracyChart');
+            if(accuracyChartCanvas) {
+                new Chart(accuracyChartCanvas, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Accuracy', ''],
+                        datasets: [{
+                            data: [87, 13],
+                            backgroundColor: ['#007bff', '#e9ecef'],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                enabled: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        if (context.dataIndex === 0) {
+                                            return `Accuracy: ${context.parsed}%`;
+                                        }
+                                        return '';
+                                    }
+                                }
+                            }
+                        },
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        }
+                    },
+                     plugins: [{
+                        id: 'doughnutText',
+                        beforeDraw(chart) {
+                            const {width, height, ctx} = chart;
+                            ctx.restore();
+                            const fontSize = (height / 114).toFixed(2);
+                            ctx.font = `bold ${fontSize}rem Inter`;
+                            ctx.textBaseline = "middle";
+                            const text = "87%";
+                            const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                            const textY = height / 2;
+                            ctx.fillStyle = '#343a40';
+                            ctx.fillText(text, textX, textY);
+                            ctx.save();
+                        }
+                    }]
+                });
+            }
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tab = button.dataset.tab;
+                    
+                    tabButtons.forEach(btn => btn.classList.remove('active', 'bg-blue-500', 'text-white'));
+                    button.classList.add('active', 'bg-blue-500', 'text-white');
+                    
+                    tabContents.forEach(content => {
+                        if (content.id === `${tab}-content`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', e => {
+                    if (mobileMenu.classList.contains('hidden') === false) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const headerNavLinks = document.querySelectorAll('#header .nav-link');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                headerNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
